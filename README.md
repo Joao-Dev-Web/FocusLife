@@ -31,7 +31,9 @@ O FocusLife nasceu com a proposta de unir ferramentas essenciais de produtividad
 
 ### Controle Financeiro
 
-![Tarefas](assets/Tarefas.png)
+![Tarefas](assets/0s.png)
+
+---
 
 ## ✨ Funcionalidades
 
