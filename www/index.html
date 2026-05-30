@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>FocusLife</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#6C5CE7" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="FocusLife" />
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512.png" />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ===================== ONBOARDING ===================== -->
+<div id="page-onboarding" class="page active">
+  <div class="onboard-bg">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
+  <div class="onboard-content">
+    <div class="mascot-wrap">
+      <div class="mascot-aura"></div>
+      <svg class="mascot-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="pg1" cx="50%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#a29bfe"/>
+            <stop offset="100%" stop-color="#6c5ce7"/>
+          </radialGradient>
+        </defs>
+        <circle cx="50" cy="50" r="32" fill="url(#pg1)"/>
+        <ellipse cx="37" cy="44" rx="6.5" ry="8.5" fill="white" opacity="0.92"/>
+        <ellipse cx="63" cy="44" rx="6.5" ry="8.5" fill="white" opacity="0.92"/>
+        <circle cx="37" cy="45" r="4" fill="#2d1f7a"/>
+        <circle cx="63" cy="45" r="4" fill="#2d1f7a"/>
+        <circle cx="38.5" cy="43" r="1.4" fill="white"/>
+        <circle cx="64.5" cy="43" r="1.4" fill="white"/>
+        <path d="M42 57 Q50 64 58 57" stroke="white" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+        <ellipse cx="50" cy="22" rx="9" ry="11" fill="url(#pg1)"/>
+        <circle cx="45" cy="18" r="3.5" fill="#fd79a8"/>
+        <circle cx="55" cy="18" r="3.5" fill="#fd79a8"/>
+      </svg>
+    </div>
+
+    <h1 class="brand-name">FocusLife</h1>
+    <p class="brand-sub">Sua jornada produtiva começa com um nome ✨</p>
+
+    <div class="onboard-card">
+      <div class="field-group">
+        <label class="field-label">Como posso te chamar?</label>
+        <input id="ob-name" class="field-input" type="text" placeholder="Seu nome ou apelido" maxlength="30" />
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Qual é seu foco principal?</label>
+        <div class="focus-grid" id="focusGrid">
+          <button class="focus-chip" data-val="Trabalho">💼 Trabalho</button>
+          <button class="focus-chip" data-val="Estudos">📚 Estudos</button>
+          <button class="focus-chip" data-val="Saúde">🏃 Saúde</button>
+          <button class="focus-chip" data-val="Projetos">🚀 Projetos</button>
+          <button class="focus-chip" data-val="Criatividade">🎨 Criatividade</button>
+          <button class="focus-chip" data-val="Outro">🌱 Outro</button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Meta diária de tarefas</label>
+        <div class="goal-row">
+          <button class="goal-btn" id="goalMinus" onclick="adjustGoal(-1)"><i class="ti ti-minus"></i></button>
+          <span class="goal-val" id="goalVal">5</span>
+          <button class="goal-btn" id="goalPlus" onclick="adjustGoal(1)"><i class="ti ti-plus"></i></button>
+        </div>
+      </div>
+
+      <button class="cta-btn" onclick="submitOnboarding()">
+        Começar minha jornada
+        <i class="ti ti-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== APP SHELL ===================== -->
+<div id="page-app" class="page">
+
+  <!-- TOP BAR -->
+  <header class="top-bar">
+    <div class="top-left">
+      <div class="app-logo-sm">FL</div>
+      <div>
+        <div class="top-greeting" id="topGreeting">Bom dia!</div>
+        <div class="top-name" id="topName">Carregando...</div>
+      </div>
+    </div>
+    <div class="top-right">
+      <div class="coin-pill">
+        <span>🪙</span>
+        <span id="coinCount">0</span>
+      </div>
+      <div class="xp-pill">
+        <span>⚡</span>
+        <span id="headerXP">Nv.1</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- SCREENS -->
+  <main class="screens-wrap">
+
+    <!-- ===== DASHBOARD ===== -->
+    <section id="screen-home" class="screen active">
+      <div class="screen-scroll">
+
+        <div class="mascot-dashboard-wrap">
+          <div class="mascot-glow"></div>
+          <div class="mascot-float">
+            <svg width="90" height="90" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="pg2" cx="50%" cy="40%" r="60%">
+                  <stop offset="0%" stop-color="#a29bfe"/>
+                  <stop offset="100%" stop-color="#6c5ce7"/>
+                </radialGradient>
+              </defs>
+              <circle cx="50" cy="50" r="32" fill="url(#pg2)"/>
+              <ellipse cx="37" cy="44" rx="6.5" ry="8.5" fill="white" opacity="0.92"/>
+              <ellipse cx="63" cy="44" rx="6.5" ry="8.5" fill="white" opacity="0.92"/>
+              <circle id="petEyeL" cx="37" cy="45" r="4" fill="#2d1f7a"/>
+              <circle id="petEyeR" cx="63" cy="45" r="4" fill="#2d1f7a"/>
+              <circle cx="38.5" cy="43" r="1.4" fill="white"/>
+              <circle cx="64.5" cy="43" r="1.4" fill="white"/>
+              <path id="petMouth" d="M42 57 Q50 64 58 57" stroke="white" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+              <ellipse cx="50" cy="22" rx="9" ry="11" fill="url(#pg2)"/>
+              <circle cx="45" cy="18" r="3.5" fill="#fd79a8"/>
+              <circle cx="55" cy="18" r="3.5" fill="#fd79a8"/>
+            </svg>
+          </div>
+          <div class="pet-mood-text" id="petMoodText">😊 Feliz e pronto para focar!</div>
+        </div>
+
+        <div class="xp-card">
+          <div class="xp-row">
+            <span class="level-tag" id="levelTag">⚡ Nível 1</span>
+            <span class="xp-nums" id="xpNums">0 / 100 XP</span>
+          </div>
+          <div class="xp-track">
+            <div class="xp-bar" id="xpBar" style="width:0%"></div>
+          </div>
+        </div>
+
+        <div class="ai-insight" id="aiInsight">
+          <div class="ai-dot-row"><span class="ai-dot"></span><span class="ai-label">ASSISTENTE</span></div>
+          <p class="ai-text" id="aiText">Bem-vindo! Complete sua primeira tarefa para ganhar XP.</p>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-mini" id="stat-tasks">
+            <div class="stat-icon-big">✅</div>
+            <div class="stat-num" id="statTasksToday">0</div>
+            <div class="stat-lbl">hoje</div>
+          </div>
+          <div class="stat-mini" id="stat-streak">
+            <div class="stat-icon-big">🔥</div>
+            <div class="stat-num" id="statStreak">0</div>
+            <div class="stat-lbl">sequência</div>
+          </div>
+          <div class="stat-mini" id="stat-focus">
+            <div class="stat-icon-big">🍅</div>
+            <div class="stat-num" id="statFocusToday">0</div>
+            <div class="stat-lbl">sessões</div>
+          </div>
+          <div class="stat-mini" id="stat-goal">
+            <div class="stat-icon-big">🎯</div>
+            <div class="stat-num" id="statGoalPct">0%</div>
+            <div class="stat-lbl">meta</div>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <span class="section-title">Missões do dia</span>
+          <span class="section-badge" id="missionBadge">0/3</span>
+        </div>
+        <div class="missions-card" id="missionsCard">
+          <!-- rendered by JS -->
+        </div>
+
+        <div class="section-header">
+          <span class="section-title">Tarefas pendentes</span>
+          <button class="sec-link" onclick="goScreen('tasks')">Ver todas →</button>
+        </div>
+        <div id="homePendingList">
+          <!-- rendered by JS -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== TAREFAS ===== -->
+    <section id="screen-tasks" class="screen">
+      <div class="screen-scroll">
+        <div class="screen-head">
+          <h2 class="screen-h2">Tarefas</h2>
+          <button class="add-btn" onclick="openTaskModal()">
+            <i class="ti ti-plus"></i>
+          </button>
+        </div>
+
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" id="taskProgressBar" style="width:0%"></div>
+        </div>
+        <div class="progress-label" id="taskProgressLabel">0 de 0 concluídas</div>
+
+        <div class="filter-chips" id="taskFilterChips">
+          <button class="chip active" data-cat="Todas" onclick="filterTasks(this)">Todas</button>
+          <button class="chip" data-cat="Trabalho" onclick="filterTasks(this)">Trabalho</button>
+          <button class="chip" data-cat="Estudos" onclick="filterTasks(this)">Estudos</button>
+          <button class="chip" data-cat="Saúde" onclick="filterTasks(this)">Saúde</button>
+          <button class="chip" data-cat="Pessoal" onclick="filterTasks(this)">Pessoal</button>
+          <button class="chip" data-cat="Outros" onclick="filterTasks(this)">Outros</button>
+        </div>
+
+        <div id="taskList">
+          <!-- rendered by JS -->
+        </div>
+
+        <div class="empty-state" id="taskEmpty" style="display:none">
+          <div style="font-size:48px">📋</div>
+          <p>Nenhuma tarefa ainda.<br>Crie a primeira!</p>
+          <button class="cta-btn-sm" onclick="openTaskModal()">+ Adicionar tarefa</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== NOTAS ===== -->
+    <section id="screen-notes" class="screen">
+      <div class="screen-scroll">
+        <div class="screen-head">
+          <h2 class="screen-h2">Notas</h2>
+          <button class="add-btn" onclick="openNoteModal()">
+            <i class="ti ti-plus"></i>
+          </button>
+        </div>
+
+        <div class="search-wrap">
+          <i class="ti ti-search search-icon"></i>
+          <input class="search-input" id="noteSearch" type="text" placeholder="Pesquisar notas..." oninput="renderNotes()" />
+        </div>
+
+        <div id="noteList"><!-- rendered by JS --></div>
+        <div class="empty-state" id="noteEmpty" style="display:none">
+          <div style="font-size:48px">📝</div>
+          <p>Sem notas ainda.<br>Registre seus pensamentos!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOCO (POMODORO) ===== -->
+    <section id="screen-focus" class="screen">
+      <div class="screen-scroll pomo-screen">
+        <div class="pomo-modes">
+          <button class="pomo-chip active" data-mins="25" data-label="Foco" onclick="setPomoMode(this)">🍅 Foco</button>
+          <button class="pomo-chip" data-mins="5" data-label="Pausa curta" onclick="setPomoMode(this)">☕ Pausa curta</button>
+          <button class="pomo-chip" data-mins="15" data-label="Pausa longa" onclick="setPomoMode(this)">🌙 Pausa longa</button>
+        </div>
+
+        <div class="ring-wrap">
+          <svg class="ring-svg" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#6c5ce7"/>
+                <stop offset="100%" stop-color="#fd79a8"/>
+              </linearGradient>
+            </defs>
+            <circle class="ring-track" cx="110" cy="110" r="95"/>
+            <circle class="ring-prog" id="ringProg" cx="110" cy="110" r="95"
+              stroke-dasharray="597" stroke-dashoffset="0"/>
+          </svg>
+          <div class="ring-center">
+            <div class="timer-big" id="timerBig">25:00</div>
+            <div class="timer-mode" id="timerMode">Modo foco</div>
+          </div>
+        </div>
+
+        <div class="pomo-dots" id="pomoDots">
+          <span class="pomo-dot"></span>
+          <span class="pomo-dot"></span>
+          <span class="pomo-dot"></span>
+          <span class="pomo-dot"></span>
+        </div>
+
+        <div class="pomo-controls">
+          <button class="ctrl-btn secondary" onclick="resetPomo()" aria-label="Reiniciar">
+            <i class="ti ti-refresh"></i>
+          </button>
+          <button class="ctrl-btn primary" id="pomoPlayBtn" onclick="togglePomo()" aria-label="Iniciar">
+            <i class="ti ti-player-play" id="pomoPlayIcon"></i>
+          </button>
+          <button class="ctrl-btn secondary" onclick="skipPomo()" aria-label="Pular">
+            <i class="ti ti-player-skip-forward"></i>
+          </button>
+        </div>
+
+        <div class="pomo-stats">
+          <div class="pomo-stat">
+            <span class="pomo-stat-num" id="pomoTodaySessions">0</span>
+            <span class="pomo-stat-lbl">sessões hoje</span>
+          </div>
+          <div class="pomo-stat-divider"></div>
+          <div class="pomo-stat">
+            <span class="pomo-stat-num" id="pomoTodayXP">0</span>
+            <span class="pomo-stat-lbl">XP ganhos</span>
+          </div>
+          <div class="pomo-stat-divider"></div>
+          <div class="pomo-stat">
+            <span class="pomo-stat-num" id="pomoTotalMins">0</span>
+            <span class="pomo-stat-lbl">min focados</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===== ALARMES ===== -->
+    <section id="screen-alarms" class="screen">
+      <div class="screen-scroll">
+        <div class="screen-head">
+          <h2 class="screen-h2">Alarmes</h2>
+          <button class="add-btn" onclick="openAlarmModal()" aria-label="Novo alarme"><i class="ti ti-plus"></i></button>
+        </div>
+        <div class="ai-insight" style="margin:0 16px 16px">
+          <div class="ai-dot-row"><span class="ai-dot"></span><span class="ai-label">SUGESTÃO INTELIGENTE</span></div>
+          <p class="ai-text" id="alarmAiText">Analisando seus padrões para sugerir horários ideais...</p>
+        </div>
+        <div class="section-header"><span class="section-title">Meus alarmes</span><span class="section-badge" id="alarmActiveBadge">0 ativos</span></div>
+        <div id="alarmList" style="padding:0 16px"></div>
+        <div class="empty-state" id="alarmEmpty" style="display:none"><div style="font-size:48px">⏰</div><p>Nenhum alarme ainda.<br>Crie um para não perder seus horários!</p><button class="cta-btn-sm" onclick="openAlarmModal()">+ Novo alarme</button></div>
+        <div class="section-header" style="margin-top:8px"><span class="section-title">Sugestões inteligentes</span></div>
+        <div id="alarmSuggestions" style="padding:0 16px 24px"></div>
+      </div>
+    </section>
+    <!-- ===== STATS ===== -->
+    <section id="screen-stats" class="screen">
+      <div class="screen-scroll">
+        <h2 class="screen-h2" style="padding: 0 16px; margin-bottom:16px">Progresso</h2>
+
+        <div class="stats-cards-row">
+          <div class="stats-card">
+            <div class="stats-card-num" id="sc-total-tasks">0</div>
+            <div class="stats-card-lbl">tarefas totais</div>
+          </div>
+          <div class="stats-card">
+            <div class="stats-card-num" id="sc-total-focus">0</div>
+            <div class="stats-card-lbl">sessões foco</div>
+          </div>
+        </div>
+        <div class="stats-cards-row">
+          <div class="stats-card">
+            <div class="stats-card-num" id="sc-streak">0</div>
+            <div class="stats-card-lbl">dias seguidos</div>
+          </div>
+          <div class="stats-card">
+            <div class="stats-card-num" id="sc-coins">0</div>
+            <div class="stats-card-lbl">moedas</div>
+          </div>
+        </div>
+
+        <div class="section-header" style="padding:0 16px">
+          <span class="section-title">Atividade — 7 dias</span>
+        </div>
+        <div class="bar-chart-wrap">
+          <div class="bar-chart" id="weekChart"><!-- rendered by JS --></div>
+        </div>
+
+        <div class="section-header" style="padding:0 16px">
+          <span class="section-title">⏰ Horários mais produtivos</span>
+        </div>
+        <div class="bar-chart-wrap">
+          <div class="bar-chart" id="hourChart" style="height:110px;align-items:flex-end"></div>
+          <div class="hour-legend" id="hourLegend"></div>
+        </div>
+
+        <div class="section-header" style="padding:0 16px">
+          <span class="section-title">🔥 Sequência</span>
+        </div>
+        <div class="streak-grid" id="streakGrid"><!-- rendered by JS --></div>
+
+        <div class="section-header" style="padding:0 16px">
+          <span class="section-title">Conquistas</span>
+        </div>
+        <div id="achieveList" style="padding:0 16px 24px"><!-- rendered by JS --></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-screen="home" onclick="goScreen('home',this)">
+      <i class="ti ti-home"></i>
+      <span>Home</span>
+    </button>
+    <button class="nav-btn" data-screen="tasks" onclick="goScreen('tasks',this)">
+      <i class="ti ti-checkbox"></i>
+      <span>Tarefas</span>
+    </button>
+    <button class="nav-btn" data-screen="notes" onclick="goScreen('notes',this)">
+      <i class="ti ti-note"></i>
+      <span>Notas</span>
+    </button>
+    <button class="nav-btn" data-screen="focus" onclick="goScreen('focus',this)">
+      <i class="ti ti-clock"></i>
+      <span>Foco</span>
+    </button>
+    <button class="nav-btn" data-screen="alarms" onclick="goScreen('alarms',this)">
+      <i class="ti ti-bell"></i>
+      <span>Alarmes</span>
+    </button>
+    <button class="nav-btn" data-screen="stats" onclick="goScreen('stats',this)">
+      <i class="ti ti-chart-bar"></i>
+      <span>Stats</span>
+    </button>
+  </nav>
+
+</div><!-- /page-app -->
+
+<!-- ===================== MODALS ===================== -->
+
+<!-- Task Modal -->
+<div class="modal-overlay" id="taskModalOverlay" onclick="closeModalOutside(event,'taskModalOverlay')">
+  <div class="modal-sheet" id="taskModal">
+    <div class="modal-handle"></div>
+    <h3 class="modal-title" id="taskModalTitle">Nova Tarefa</h3>
+    <input class="modal-input" id="taskNameInput" type="text" placeholder="Nome da tarefa..." maxlength="80" />
+    <div class="modal-row">
+      <div class="modal-field half">
+        <label class="modal-label">Categoria</label>
+        <select class="modal-select" id="taskCatSelect">
+          <option>Trabalho</option>
+          <option>Estudos</option>
+          <option>Saúde</option>
+          <option>Pessoal</option>
+          <option>Outros</option>
+        </select>
+      </div>
+      <div class="modal-field half">
+        <label class="modal-label">Prioridade</label>
+        <select class="modal-select" id="taskPrioSelect">
+          <option value="alta">🔴 Alta</option>
+          <option value="media" selected>🟡 Média</option>
+          <option value="baixa">🟢 Baixa</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Prazo (opcional)</label>
+      <input class="modal-input" id="taskDeadline" type="datetime-local" />
+    </div>
+    <input type="hidden" id="taskEditId" value="" />
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeModal('taskModalOverlay')">Cancelar</button>
+      <button class="modal-save" onclick="saveTask()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Note Modal -->
+<div class="modal-overlay" id="noteModalOverlay" onclick="closeModalOutside(event,'noteModalOverlay')">
+  <div class="modal-sheet" id="noteModal">
+    <div class="modal-handle"></div>
+    <h3 class="modal-title">Nova Nota</h3>
+    <input class="modal-input" id="noteTitleInput" type="text" placeholder="Título..." maxlength="60" />
+    <textarea class="modal-textarea" id="noteBodyInput" placeholder="Conteúdo da nota..."></textarea>
+    <div class="modal-field">
+      <label class="modal-label">Etiqueta</label>
+      <select class="modal-select" id="noteTagSelect">
+        <option>💡 Ideia</option>
+        <option>📌 Importante</option>
+        <option>📚 Estudo</option>
+        <option>💼 Trabalho</option>
+        <option>🌱 Pessoal</option>
+      </select>
+    </div>
+    <input type="hidden" id="noteEditId" value="" />
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeModal('noteModalOverlay')">Cancelar</button>
+      <button class="modal-save" onclick="saveNote()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Alarm Modal -->
+<div class="modal-overlay" id="alarmModalOverlay" onclick="closeModalOutside(event,'alarmModalOverlay')">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <h3 class="modal-title" id="alarmModalTitle">Novo Alarme</h3>
+    <div class="modal-field">
+      <label class="modal-label">Horário</label>
+      <input class="modal-input" id="alarmTimeInput" type="time" />
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Nome do alarme</label>
+      <input class="modal-input" id="alarmNameInput" type="text" placeholder="Ex: Tomar água, Reunião..." maxlength="50" />
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Dias da semana</label>
+      <div class="weekday-picker" id="weekdayPicker">
+        <button class="wday-btn" data-day="0">Dom</button>
+        <button class="wday-btn" data-day="1">Seg</button>
+        <button class="wday-btn" data-day="2">Ter</button>
+        <button class="wday-btn" data-day="3">Qua</button>
+        <button class="wday-btn" data-day="4">Qui</button>
+        <button class="wday-btn" data-day="5">Sex</button>
+        <button class="wday-btn" data-day="6">Sáb</button>
+      </div>
+    </div>
+    <div class="modal-row">
+      <div class="modal-field half">
+        <label class="modal-label">Tipo</label>
+        <select class="modal-select" id="alarmTypeSelect">
+          <option value="tarefa">📋 Tarefa</option>
+          <option value="agua">💧 Água</option>
+          <option value="exercicio">🏃 Exercício</option>
+          <option value="estudo">📚 Estudo</option>
+          <option value="medicamento">💊 Medicamento</option>
+          <option value="outro">🔔 Outro</option>
+        </select>
+      </div>
+      <div class="modal-field half">
+        <label class="modal-label">Vibração</label>
+        <select class="modal-select" id="alarmVibSelect">
+          <option value="sim">✅ Sim</option>
+          <option value="nao">❌ Não</option>
+        </select>
+      </div>
+    </div>
+    <input type="hidden" id="alarmEditId" value="" />
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeModal('alarmModalOverlay')">Cancelar</button>
+      <button class="modal-save" onclick="saveAlarm()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- PWA Install Banner -->
+<div class="install-banner" id="installBanner">
+  <div class="install-banner-icon">📱</div>
+  <div class="install-banner-text">
+    <strong>Instalar FocusLife</strong>
+    <span>Adicione à tela inicial para usar offline</span>
+  </div>
+  <button class="install-banner-btn" id="installBtn">Instalar</button>
+  <button class="install-banner-close" id="installClose">✕</button>
+</div>
+
+<!-- Notification Permission Banner -->
+<div class="notif-banner" id="notifBanner">
+  <span>🔔 Ativar notificações para o Pomodoro?</span>
+  <button class="notif-yes" id="notifYes">Sim</button>
+  <button class="notif-no" id="notifNo">Não</button>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="js/storage.js"></script>
+<script src="js/gamification.js"></script>
+<script src="js/tasks.js"></script>
+<script src="js/notes.js"></script>
+<script src="js/pomodoro.js"></script>
+<script src="js/alarms.js"></script>
+<script src="js/stats.js"></script>
+<script src="js/app.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>
