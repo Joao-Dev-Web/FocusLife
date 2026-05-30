@@ -23,15 +23,15 @@ O FocusLife nasceu com a proposta de unir ferramentas essenciais de produtividad
 
 ### Tela Inicial
 
-![Tela Inicial](assets/tela-principal.png)
+![Tela Inicial](https://raw.githubusercontent.com/Joao-Dev-Web/FocusLife/main/Assets/tela-principal.png)
 
 ### Sessão de Foco
 
-![Foco](assets/foco.png)
+![Foco](https://raw.githubusercontent.com/Joao-Dev-Web/FocusLife/main/Assets/foco.png)
 
 ### Tarefas
 
-![Tarefas](assets/tarefas.png)
+![Tarefas](https://raw.githubusercontent.com/Joao-Dev-Web/FocusLife/main/Assets/tarefas.png)
 
 ---
 
