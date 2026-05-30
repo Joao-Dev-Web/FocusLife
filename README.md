@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="Assets/Banner.png" width="100%">
+</p>
+
 # 🎯 FocusLife
 
 > Transformando produtividade em uma experiência gamificada.
@@ -10,8 +14,24 @@ FocusLife é um aplicativo mobile focado em produtividade, organização pessoal
 
 O FocusLife nasceu com a proposta de unir ferramentas essenciais de produtividade em um único ambiente, incentivando o usuário a manter hábitos saudáveis e alcançar seus objetivos através de recompensas, progresso visual e interação gamificada.
 
+
+
 ---
 
+
+## 📸 Preview
+
+### Tela Inicial
+
+![Tela Inicial](assets/telaprincipal.png)
+
+### Sessão de Foco
+
+![Foco](assets/foco.png)
+
+### Controle Financeiro
+
+![Tarefas](assets/tarefas.png)
 ## ✨ Funcionalidades
 
 ### 📝 Organização Pessoal
