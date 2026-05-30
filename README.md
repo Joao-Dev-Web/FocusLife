@@ -19,20 +19,26 @@ O FocusLife nasceu com a proposta de unir ferramentas essenciais de produtividad
 ---
 
 
-## 📸 Preview
+<h2 align="center">📱 Preview do App</h2>
 
-### Tela Inicial
+<table align="center">
+<tr>
+<td align="center">
+<img src="https://raw.githubusercontent.com/Joao-Dev-Web/FocusLife/main/Assets/tela-principal.png" width="220"><br>
+<b>Home</b>
+</td>
 
-![Tela Inicial](https://raw.githubusercontent.com/Joao-Dev-Web/FocusLife/main/Assets/tela-principal.png)
+<td align="center">
+<img src="https://raw.githubusercontent.com/Joao-Dev-Web/FocusLife/main/Assets/foco.png" width="220"><br>
+<b>Foco</b>
+</td>
 
-### Sessão de Foco
-
-![Foco](https://raw.githubusercontent.com/Joao-Dev-Web/FocusLife/main/Assets/foco.png)
-
-### Tarefas
-
-![Tarefas](https://raw.githubusercontent.com/Joao-Dev-Web/FocusLife/main/Assets/tarefas.png)
-
+<td align="center">
+<img src="https://raw.githubusercontent.com/Joao-Dev-Web/FocusLife/main/Assets/tarefas.png" width="220"><br>
+<b>Tarefas</b>
+</td>
+</tr>
+</table>
 ---
 
 ## ✨ Funcionalidades
