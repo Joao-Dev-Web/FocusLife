@@ -23,15 +23,16 @@ O FocusLife nasceu com a proposta de unir ferramentas essenciais de produtividad
 
 ### Tela Inicial
 
-![Tela Inicial](assets/telaprincipal.png)
+![Tela Inicial](assets/TelaPrincipal.png)
 
 ### Sessão de Foco
 
-![Foco](assets/foco.png)
+![Foco](assets/Foco.png)
 
 ### Controle Financeiro
 
-![Tarefas](assets/tarefas.png)
+![Tarefas](assets/Tarefas.png)
+
 ## ✨ Funcionalidades
 
 ### 📝 Organização Pessoal
