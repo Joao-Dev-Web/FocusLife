@@ -16,7 +16,7 @@ O FocusLife nasceu com a proposta de unir ferramentas essenciais de produtividad
 
 
 
----
+
 
 
 <h2 align="center">📱 Preview do App</h2>
@@ -39,7 +39,7 @@ O FocusLife nasceu com a proposta de unir ferramentas essenciais de produtividad
 </td>
 </tr>
 </table>
----
+
 
 ## ✨ Funcionalidades
 
